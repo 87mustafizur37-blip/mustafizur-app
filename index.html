@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Mustafizur Rohman</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#006a4e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<style>
+
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+    /* ===== SPLASH SCREEN ===== */
+
+#splashScreen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#c1121f 0%,#c1121f 50%,#006a4e 50%,#006a4e 100%);
+    color:white;
+    text-align:center;
+}
+
+.splash-content{
+    width:90%;
+    max-width:350px;
+}
+
+.splash-logo{
+    width:120px;
+    height:120px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:white;
+    color:#c1121f;
+    border:6px solid #00845a;
+    font-size:38px;
+    font-weight:bold;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.splash-content h1{
+    color:white;
+    margin-top:20px;
+    font-size:27px;
+}
+
+.splash-content p{
+    margin-top:8px;
+    opacity:.9;
+}
+
+.loading-bar{
+    width:220px;
+    height:5px;
+    margin:25px auto 0;
+    background:rgba(255,255,255,.3);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.loading-bar div{
+    height:100%;
+    width:0;
+    background:white;
+    animation:loading 2.5s linear forwards;
+}
+
+@keyframes loading{
+    from{width:0;}
+    to{width:100%;}
+}
+}
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("service-worker.js")
+        .then(function () {
+            console.log("App ready");
+        })
+        .catch(function (error) {
+            console.log("Service Worker error:", error);
+        });
+    });
+}
+</script>
+body{
+  <div id="pinScreen" class="pin-screen">
+    <div class="pin-box">
+
+        <div class="pin-logo">MR</div>
+
+        <h2>🔐 App Locked</h2>
+
+        <p>আপনার PIN দিন</p>
+
+        <input
+            type="password"
+            id="pinInput"
+            maxlength="4"
+            inputmode="numeric"
+            placeholder="••••"
+        >
+
+        <button onclick="checkPIN()">
+            🔓 Unlock
+        </button>
+
+        <p id="pinMessage"></p>
+
+    </div>
+</div>
+ <div id="splashScreen">
+    <div class="splash-content">
+        <div class="splash-logo">MR</div>
+
+        <h1>Mustafizur Rohman</h1>
+
+        <p>My Personal Digital Archive</p>
+
+        <div class="loading-bar">
+            <div></div>
+        </div>
+    </div>
+</div>
+    min-height:100vh;
+    background:linear-gradient(135deg,#c1121f,#006a4e);
+    padding:18px;
+}
+
+.app{
+    max-width:430px;
+    margin:auto;
+    background:white;
+    border-radius:25px;
+    padding:22px;
+    box-shadow:0 12px 35px rgba(0,0,0,.30);
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+}
+
+.profile{
+    width:145px;
+    height:145px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #00845a;
+    background:#eee;
+}
+
+h1{
+    margin-top:15px;
+    color:#c1121f;
+    font-size:28px;
+}
+
+.subtitle{
+    color:#666;
+    margin:8px 0 20px;
+}
+
+/* PROFILE PHOTO BUTTON */
+
+.photo-button{
+    display:inline-block;
+    background:#c1121f;
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+input[type=file]{
+    display:none;
+}
+
+/* MENU */
+
+.menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.menu button{
+    border:none;
+    border-radius:16px;
+    padding:18px 8px;
+    background:#007a5a;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.menu button:active{
+    transform:scale(.97);
+}
+
+/* SECTIONS */
+
+.section{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    background:#f4f4f4;
+    border-radius:16px;
+}
+
+.section h2{
+    color:#c1121f;
+    margin-bottom:14px;
+}
+
+.info{
+    background:white;
+    padding:14px;
+    margin:8px 0;
+    border-radius:10px;
+    line-height:1.6;
+    word-break:break-word;
+}
+
+/* LINKS */
+
+.link-button{
+    display:block;
+    width:100%;
+    padding:15px;
+    margin:10px 0;
+    border:none;
+    border-radius:12px;
+    background:#007a5a;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    font-size:17px;
+    font-weight:bold;
+}
+
+/* ACTION BUTTON */
+
+.action{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:14px;
+    margin:8px 0;
+    background:#007a5a;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.back{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:13px;
+    margin-top:18px;
+    background:#c1121f;
+    color:white;
+    font-weight:bold;
+}
+
+/* FILE */
+
+.file-item{
+    background:white;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+.file-item button{
+    border:none;
+    border-radius:8px;
+    padding:8px 12px;
+    margin-top:8px;
+    background:#007a5a;
+    color:white;
+}
+
+.delete{
+    background:#c1121f !important;
+    margin-left:5px;
+}
+
+/* NOTES */
+
+textarea{
+    width:100%;
+    height:160px;
+    border:1px solid #ccc;
+    border-radius:12px;
+    padding:12px;
+    resize:none;
+    font-size:16px;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:#777;
+    font-size:12px;
+    margin-top:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+<img
+id="profilePhoto"
+class="profile"
+src=""
+alt="Mustafizur Rohman">
+
+<h1>Mustafizur Rohman</h1>
+
+<div class="subtitle">
+My Personal Digital Archive
+</div>
+
+
+<label
+class="photo-button"
+for="profileInput">
+
+🖼️ নিজের ছবি নির্বাচন করুন
+
+</label>
+
+<input
+id="profileInput"
+type="file"
+accept="image/*">
+
+</div>
+
+
+
+<!-- ================= HOME MENU ================= -->
+
+<div
+id="homeMenu"
+class="menu">
+
+
+<button onclick="openSection('profile')">
+
+👤<br>
+আমার পরিচয়
+
+</button>
+
+
+<button onclick="openSection('contact')">
+
+📞<br>
+যোগাযোগ
+
+</button>
+
+
+<button onclick="openSection('photos')">
+
+📷<br>
+Photos
+
+</button>
+
+
+<button onclick="openSection('documents')">
+
+📄<br>
+Documents
+
+</button>
+
+
+<button onclick="openSection('videos')">
+
+🎥<br>
+Videos
+
+</button>
+
+
+<button onclick="openSection('links')">
+
+🔗<br>
+Important Links
+
+</button>
+
+
+<button onclick="openSection('notes')">
+
+📝<br>
+My Notes
+
+</button>
+
+
+<button onclick="openSection('about')">
+
+ℹ️<br>
+About Me
+
+</button>
+
+
+</div>
+
+
+
+<!-- ================= PROFILE ================= -->
+
+<div
+id="profile"
+class="section">
+
+<h2>👤 আমার পরিচয়</h2>
+
+
+<div class="info">
+
+<b>নাম:</b><br>
+Mustafizur Rohman
+
+</div>
+
+
+<div class="info">
+
+<b>ঠিকানা:</b><br>
+কালেখারবেড়, রাজনগর,
+রামপাল, বাগেরহাট,
+বাংলাদেশ
+
+</div>
+
+
+<div class="info">
+
+<b>ইমেইল:</b><br>
+87mustafizur37@gmail.com
+
+</div>
+
+
+<div class="info">
+
+<b>মোবাইল:</b><br>
+01408737082
+
+</div>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<!-- ================= CONTACT ================= -->
+
+<div
+id="contact"
+class="section">
+
+<h2>📞 যোগাযোগ</h2>
+
+
+<a
+class="link-button"
+href="tel:01408737082">
+
+📞 ফোন করুন
+
+</a>
+
+
+<a
+class="link-button"
+href="mailto:87mustafizur37@gmail.com">
+
+📧 ইমেইল করুন
+
+</a>
+
+
+<a
+class="link-button"
+href="https://www.facebook.com/mhmd.mstfyz.alrhman.altalb"
+target="_blank">
+
+📘 Facebook
+
+</a>
+
+
+<a
+class="link-button"
+href="https://www.instagram.com/85mustafizur25/"
+target="_blank">
+
+📸 Instagram
+
+</a>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<!-- ================= PHOTOS ================= -->
+
+<div
+id="photos"
+class="section">
+
+<h2>📷 My Photos</h2>
+
+<p>
+আপনার ছবি নির্বাচন করুন।
+</p>
+
+
+<input
+id="galleryInput"
+type="file"
+accept="image/*"
+multiple>
+
+
+<label
+class="photo-button"
+for="galleryInput">
+
+➕ ছবি নির্বাচন করুন
+
+</label>
+
+
+<div id="photoList"></div>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<!-- ================= DOCUMENTS ================= -->
+
+<div
+id="documents"
+class="section">
+
+<h2>📄 Documents</h2>
+
+<p>
+গুরুত্বপূর্ণ PDF নির্বাচন করুন।
+</p>
+
+
+<input
+id="documentInput"
+type="file"
+accept=".pdf,application/pdf">
+
+
+<label
+class="photo-button"
+for="documentInput">
+
+➕ PDF যোগ করুন
+
+</label>
+
+
+<div id="documentList">
+
+<p>
+কোনো PDF নেই।
+</p>
+
+</div>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<!-- ================= VIDEOS ================= -->
+
+<div
+id="videos"
+class="section">
+
+<h2>🎥 Videos</h2>
+
+
+<input
+id="videoInput"
+type="file"
+accept="video/*">
+
+
+<label
+class="photo-button"
+for="videoInput">
+
+➕ Video নির্বাচন করুন
+
+</label>
+
+
+<div id="videoList"></div>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<!-- ================= LINKS ================= -->
+
+<div
+id="links"
+class="section">
+
+<h2>🔗 Important Links</h2>
+
+
+<a
+class="link-button"
+href="https://www.facebook.com/mhmd.mstfyz.alrhman.altalb"
+target="_blank">
+
+📘 Facebook
+
+</a>
+
+
+<a
+class="link-button"
+href="https://www.instagram.com/85mustafizur25/"
+target="_blank">
+
+📸 Instagram
+
+</a>
+
+
+<a
+class="link-button"
+href="https://www.youtube.com/"
+target="_blank">
+
+▶️ YouTube
+
+</a>
+
+
+<a
+class="link-button"
+href="https://www.google.com/"
+target="_blank">
+
+🌐 Google
+
+</a>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<!-- ================= NOTES ================= -->
+
+<div
+id="notes"
+class="section">
+
+<h2>📝 My Notes</h2>
+
+
+<textarea
+id="noteText"
+placeholder="এখানে আপনার নোট লিখুন...">
+</textarea>
+
+
+<button
+class="action"
+onclick="saveNote()">
+
+💾 Note Save করুন
+
+</button>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<!-- ================= ABOUT ================= -->
+
+<div
+id="about"
+class="section">
+
+<h2>ℹ️ About Me</h2>
+
+
+<div class="info">
+
+<b>Mustafizur Rohman</b>
+My Personal Digital Archive
+<br>
+সততা • দক্ষতা • দেশপ্রেম
+
+<br><br>
+
+About me
+
+</div>
+
+
+<button
+class="back"
+onclick="goHome()">
+
+⬅️ ফিরে যান
+
+</button>
+
+</div>
+
+
+
+<div class="footer">
+
+© 2026 Mustafizur Rohman
+
+</div>
+
+
+</div>
+
+/* ===== PIN LOCK ===== */
+
+const APP_PIN = "1234";
+
+function checkPIN(){
+
+    const entered =
+        document.getElementById("pinInput").value;
+
+    const message =
+        document.getElementById("pinMessage");
+
+    if(entered === APP_PIN){
+
+        sessionStorage.setItem(
+            "appUnlocked",
+            "yes"
+        );
+
+        document.getElementById(
+            "pinScreen"
+        ).style.display = "none";
+
+        message.innerText = "";
+
+    }else{
+
+        message.innerText =
+            "❌ PIN সঠিক নয়";
+
+        document.getElementById(
+            "pinInput"
+        ).value = "";
+
+    }
+}
+
+
+/* Show PIN screen */
+
+if(sessionStorage.getItem("appUnlocked") !== "yes"){
+
+    document.getElementById(
+        "pinScreen"
+    ).style.display = "flex";
+
+}
+/* PIN LOCK DISABLED */
+
+const pinScreen = document.getElementById("pinScreen");
+
+if (pinScreen) {
+    pinScreen.style.display = "none";
+}
+<script>
+
+
+/* =================================
+   PROFILE PHOTO
+================================= */
+
+const profileInput =
+document.getElementById("profileInput");
+
+const profilePhoto =
+document.getElementById("profilePhoto");
+
+
+profileInput.addEventListener(
+"change",
+function(){
+
+const file=this.files[0];
+
+if(!file)return;
+
+
+const reader=new FileReader();
+
+
+reader.onload=function(e){
+
+profilePhoto.src=e.target.result;
+
+localStorage.setItem(
+"mustafizurProfile",
+e.target.result
+);
+
+};
+
+
+reader.readAsDataURL(file);
+
+});
+
+
+const savedProfile=
+localStorage.getItem(
+"mustafizurProfile"
+);
+
+
+if(savedProfile){
+
+profilePhoto.src=savedProfile;
+
+}
+
+
+
+/* =================================
+   NAVIGATION
+================================= */
+
+function openSection(id){
+
+document.getElementById(
+"homeMenu"
+).style.display="none";
+
+
+document.querySelectorAll(
+".section"
+).forEach(
+function(section){
+
+section.style.display="none";
+
+});
+
+
+document.getElementById(
+id
+).style.display="block";
+
+
+if(id==="documents"){
+
+loadDocuments();
+
+}
+
+}
+
+
+
+function goHome(){
+
+document.getElementById(
+"homeMenu"
+).style.display="grid";
+
+
+document.querySelectorAll(
+".section"
+).forEach(
+function(section){
+
+section.style.display="none";
+
+});
+
+}
+
+
+
+/* =================================
+   NOTES
+================================= */
+
+function saveNote(){
+
+const note=
+document.getElementById(
+"noteText"
+).value;
+
+
+localStorage.setItem(
+"mustafizurNote",
+note
+);
+
+
+alert(
+"✅ Note সংরক্ষণ হয়েছে"
+);
+
+}
+
+
+const oldNote=
+localStorage.getItem(
+"mustafizurNote"
+);
+
+
+if(oldNote){
+
+document.getElementById(
+"noteText"
+).value=oldNote;
+
+}
+
+
+
+/* =================================
+   PHOTOS
+================================= */
+
+document.getElementById(
+"galleryInput"
+).addEventListener(
+"change",
+function(){
+
+const list=
+document.getElementById(
+"photoList"
+);
+
+list.innerHTML="";
+
+
+Array.from(
+this.files
+).forEach(
+function(file){
+
+const reader=
+new FileReader();
+
+
+reader.onload=
+function(e){
+
+const img=
+document.createElement(
+"img"
+);
+
+
+img.src=e.target.result;
+
+
+img.style.width="90px";
+
+img.style.height="90px";
+
+img.style.objectFit="cover";
+
+img.style.borderRadius="12px";
+
+img.style.margin="5px";
+
+
+list.appendChild(img);
+
+};
+
+
+reader.readAsDataURL(file);
+
+});
+
+});
+
+
+
+/* =================================
+   VIDEOS
+================================= */
+
+document.getElementById(
+"videoInput"
+).addEventListener(
+"change",
+function(){
+
+const file=this.files[0];
+
+if(!file)return;
+
+
+const url=
+URL.createObjectURL(file);
+
+
+const video=
+document.createElement(
+"video"
+);
+
+
+video.src=url;
+
+video.controls=true;
+
+video.style.width="100%";
+
+video.style.marginTop="12px";
+
+
+document.getElementById(
+"videoList"
+).appendChild(video);
+
+});
+
+
+
+/* =================================
+   DOCUMENT DATABASE
+================================= */
+
+let db;
+
+
+const request=
+indexedDB.open(
+"MustafizurRohmanDocuments",
+1
+);
+
+
+request.onupgradeneeded=
+function(event){
+
+db=event.target.result;
+
+
+if(
+!db.objectStoreNames.contains(
+"documents"
+)
+){
+
+db.createObjectStore(
+"documents",
+{
+keyPath:"id",
+autoIncrement:true
+}
+);
+
+}
+
+};
+
+
+request.onsuccess=
+function(event){
+
+db=event.target.result;
+
+loadDocuments();
+
+};
+
+
+request.onerror=
+function(){
+
+console.log(
+"Document storage error"
+);
+
+};
+
+
+
+/* ADD DOCUMENT */
+
+document.getElementById(
+"documentInput"
+).addEventListener(
+"change",
+function(){
+
+const file=this.files[0];
+
+if(!file)return;
+
+
+if(!db){
+
+alert(
+"Storage প্রস্তুত হচ্ছে। আবার চেষ্টা করুন।"
+);
+
+return;
+
+}
+
+
+const transaction=
+db.transaction(
+["documents"],
+"readwrite"
+);
+
+
+const store=
+transaction.objectStore(
+"documents"
+);
+
+
+store.add({
+
+name:file.name,
+
+type:file.type,
+
+file:file,
+
+date:new Date().toISOString()
+
+});
+
+
+transaction.oncomplete=
+function(){
+
+alert(
+"✅ Document সংরক্ষণ হয়েছে!"
+);
+
+loadDocuments();
+
+};
+
+
+this.value="";
+
+});
+
+
+
+/* LOAD DOCUMENTS */
+
+function loadDocuments(){
+
+if(!db)return;
+
+
+const list=
+document.getElementById(
+"documentList"
+);
+
+
+list.innerHTML="";
+
+
+const transaction=
+db.transaction(
+["documents"],
+"readonly"
+);
+
+
+const store=
+transaction.objectStore(
+"documents"
+);
+
+
+let found=false;
+
+
+store.openCursor().onsuccess=
+function(event){
+
+const cursor=
+event.target.result;
+
+
+if(cursor){
+
+found=true;
+
+
+const data=
+cursor.value;
+
+
+const item=
+document.createElement(
+"div"
+);
+
+
+item.className=
+"file-item";
+
+
+const name=
+document.createElement(
+"div"
+);
+
+
+name.innerHTML=
+"📄 <b>"+
+data.name+
+"</b>";
+
+
+const openButton=
+document.createElement(
+"button"
+);
+
+
+openButton.innerText=
+"📂 Open";
+
+
+openButton.onclick=
+function(){
+
+const url=
+URL.createObjectURL(
+data.file
+);
+
+
+window.open(
+url,
+"_blank"
+);
+
+};
+
+
+const deleteButton=
+document.createElement(
+"button"
+);
+
+
+deleteButton.innerText=
+"🗑️ Delete";
+
+
+deleteButton.className=
+"delete";
+
+
+deleteButton.onclick=
+function(){
+
+deleteDocument(
+data.id
+);
+
+};
+
+
+item.appendChild(name);
+
+item.appendChild(openButton);
+
+item.appendChild(deleteButton);
+
+
+list.appendChild(item);
+
+
+cursor.continue();
+
+}
+
+
+else if(!found){
+
+list.innerHTML=
+"<p>কোনো PDF নেই।</p>";
+
+}
+
+};
+
+}
+
+
+
+/* DELETE DOCUMENT */
+
+function deleteDocument(id){
+
+if(
+!confirm(
+"এই Document মুছে ফেলবেন?"
+)
+){
+
+return;
+
+}
+
+
+const transaction=
+db.transaction(
+["documents"],
+"readwrite"
+);
+
+
+const store=
+transaction.objectStore(
+"documents"
+);
+
+
+store.delete(id);
+
+
+transaction.oncomplete=
+function(){
+
+loadDocuments();
+
+};
+
+}
+
+
+</script>
+
+
+</body>
+</html>
+/* ===== PREMIUM HOME DESIGN ===== */
+
+.app{
+    overflow:hidden;
+}
+
+.header{
+    padding-bottom:10px;
+}
+
+.profile{
+    box-shadow:0 5px 18px rgba(0,0,0,.20);
+}
+
+.menu button{
+    min-height:90px;
+    transition:.2s;
+    box-shadow:0 4px 10px rgba(0,0,0,.12);
+}
+
+.menu button:hover{
+    transform:translateY(-2px);
+}
+
+.info{
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.link-button{
+    box-shadow:0 3px 8px rgba(0,0,0,.12);
+}
+
+.section{
+    animation:fadeIn .25s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* App title */
+
+h1{
+    letter-spacing:.5px;
+}
+
+/* Footer */
+
+.footer{
+    border-top:1px solid #eee;
+    padding-top:12px;
+}
