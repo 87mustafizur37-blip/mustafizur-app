@@ -1,0 +1,10 @@
+{
+  "name": "Mustafizur Rohman",
+  "short_name": "Mustafizur",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#006a4e",
+  "description": "Mustafizur Rohman Personal Digital Archive",
+  "icons": []
+}
