@@ -1,0 +1,9 @@
+{
+  "name": "Mustafizur Rahman",
+  "short_name": "Mustafizur",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1426",
+  "theme_color": "#0b1426",
+  "description": "Personal brand, education, literature and knowledge hub"
+}
