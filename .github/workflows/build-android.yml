@@ -27,6 +27,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # নতুন যোগ করা হয়েছে: ওয়েব প্রজেক্ট বিল্ড করার জন্য (যা www ফোল্ডার বা বিল্ড ফাইল তৈরি করবে)
+      - name: Build web app
+        run: npm run build
+
       - name: Add Android platform
         run: npx cap add android
 
